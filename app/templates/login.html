@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+<!--Let add some HTMX so let ad the CDN link for HTMX inside our head tag
+ Then add the hx-post to our login and an hx-target method which is equal to id and then crated a div with id result 
+-->
+    <form hx-post="/login" hx-target="#result">
+        <input type="name" name="username" id="" placeholder="Username"> <br>
+       <input type="password" name="password" id="" placeholder="Password">
+      <button type="submit">Login</button>
+    </form>
+    <div id="result"></div>
+     <br>
+    
+    <a href="SignUp.html">Go to SignUp</a>
+</body>
+</html>
