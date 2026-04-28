@@ -13,6 +13,9 @@ app= FastAPI()
 
 templates= Jinja2Templates(directory='./templates')
 
+# Let mount our css
+app.mount("/app/static",StaticFiles(directory="./static"),name="static")
+
 Base.metadata.create_all(bind=engine)
 
 # The middleware in quetion

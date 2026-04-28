@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h2>Welcome to the Dashboard</h2>
+{% extends "base.html" %}
 
-    <p>You are logged in</p>
+{% block content %}
 
+<h2>Dashboard</h2>
 
-    <a href="/logout">logout</a>
-</body>
-</html>
+<p style="text-align:center;">
+    Welcome, <strong>{{ request.session.user }}</strong> 🎉
+</p>
+
+<br>
+
+<a href="/logout">
+    <button style="background-color:red;">Logout</button>
+</a>
+
+{% endblock %}

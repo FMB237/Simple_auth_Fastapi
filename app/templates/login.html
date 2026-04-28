@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+{%  extends "base.html" %}
+{%block content %}
    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <title>Login</title>
 </head>
 <body>
+    <style> 
+        #Signup_link{
+            text-decoration: none;
+
+        }
+        </style>
     <h2>Login</h2>
 <!--Let add some HTMX so let ad the CDN link for HTMX inside our head tag
  Then add the hx-post to our login and an hx-target method which is equal to id and then crated a div with id result 
@@ -20,7 +22,7 @@
     <div id="result"></div>
      <br>
     
-    <a href="SignUp.html">Go to SignUp</a>
+    <a href="SignUp.html" id="Signup_link">SignUp</a>
 
 </body>
-</html>
+{% endblock %}
