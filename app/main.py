@@ -50,12 +50,19 @@ def home(request : Request):
 @app.post('/login',response_class=HTMLResponse)
 def login(request:Request,username : str = Form(...) , password: str = Form(...)):
     db= SessionLocal()
-    user = db.query(User).filter(User.username == username).first()
-    if user and verify_password(password,user.password):
-         request.session["user"] = user.username
-         return HTMLResponse(
-            '<script>window.location.href="/dashboard"</script>') # fOR Redirection to dashboard after login
-    return "<p style='color:red;'>Invalid credentials</p>"
+    try:
+         user = db.query(User).filter(User.username == username).first()
+         if user and verify_password(password,user.password):
+           request.session["user"] = user.username
+           return HTMLResponse(
+            '<script>window.location.href="/dashboard"</script>')
+             # fOR Redirection to dashboard after login
+         else:
+            return "<p style='color:red;'>Invalid credentials</p>"
+    finally:
+        db.close()
+
+   
 
 
 #Let add the SignUp route for get request
@@ -70,17 +77,21 @@ def get_SignUp(request:Request):
 # Update SignUp with new password rules
 @app.post('/SignUp',response_class=HTMLResponse)
 def Post_SignUp(request:Request,username : str = Form(...),email:str = Form(...),password: str = Form(...,)):
-    db =SessionLocal() # Now let check if user exists ??
-    existing_user = db.query(User).filter(User.username == username).first()
+    db =SessionLocal()
+    try:
+        existing_user = db.query(User).filter(User.username == username).first()  # Now let check if user exists ??
+        if existing_user:
+             return "<p style='color:red;'>User already exists</p>"
 
-    if existing_user:
-         return "<p style='color:red;'>User already exists</p>"
-    # new password variable
-    hashed_pw = hash_password(password)
-    new_user = User(username=username,email=email,password=hashed_pw)
-    db.add(new_user)
-    db.commit()
-    return "<p style='color:green;'>Registration successful</p>"
+         # new password variable
+        hashed_pw = hash_password(password)
+        new_user = User(username=username,email=email,password=hashed_pw)
+        db.add(new_user)
+        db.commit()
+        return "<p style='color:green;'>Registration successful</p>"
+    finally:
+        db.close()
+    
 
 
 # let add our dashboard route
